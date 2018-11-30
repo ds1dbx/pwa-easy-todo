@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo in Onefile</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="What are you going to do?" v-model="newTodoitem">
+        <button v-on:click="addToList">Add to list</button>
+        <ul>
+            <li v-for="todo in todoitems"><input type="checkbox" v-bind:id="todo.subject" v-on:click="removeFromList">{{ todo.subject }}</li>
+        </ul>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                newTodoitem: '',
+                todoitems: []
+            },
+            methods: {
+                addToList: function(event) {
+                    if (this.newTodoitem != '') {
+                        this.todoitems.push({ subject: this.newTodoitem })
+                        localStorage.setItem('mytodoitems', JSON.stringify(this.todoitems))
+                        this.newTodoitem = ''
+                    }
+                },
+                removeFromList: function(event) {
+                    var choice = confirm("`" + event.target.id + "` will be removed. Are you sure?")
+                    if (choice) {
+                        var targetIndex = this.todoitems.indexOf(event.target.id)
+                        event.target.checked = false
+                        this.todoitems.splice(targetIndex-1,1)
+                        localStorage.setItem('mytodoitems', JSON.stringify(this.todoitems))
+                    } else {
+                        event.target.checked = false
+                    }
+                }
+            },
+            created: function() {
+                // Check if localStorage is already setup
+                if (localStorage.getItem('mytodoitems') === null)
+                {
+
+                } else {
+                    this.todoitems = JSON.parse(localStorage.getItem('mytodoitems'))
+                }
+            }
+        })
+    </script>
+</body>
+</html>
