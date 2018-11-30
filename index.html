@@ -15,6 +15,20 @@
         </ul>
     </div>
     
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAu_Q6ymuPYu6GwTZ-FW5zaPpA0TRFdgT8",
+        authDomain: "pwa-hw-todo-app.firebaseapp.com",
+        databaseURL: "https://pwa-hw-todo-app.firebaseio.com",
+        projectId: "pwa-hw-todo-app",
+        storageBucket: "pwa-hw-todo-app.appspot.com",
+        messagingSenderId: "860245597804"
+      };
+      firebase.initializeApp(config);
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var vm = new Vue({
