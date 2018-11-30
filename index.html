@@ -11,7 +11,7 @@
         <input type="text" placeholder="What are you going to do?" v-model="newTodoitem">
         <button v-on:click="addToList">Add to list</button>
         <ul>
-            <li v-for="todo in todoitems"><input type="checkbox" v-bind:id="todo.subject" v-on:click="removeFromList">{{ todo.subject }}</li>
+            <li v-for="todo in todoitems"><input type="checkbox" v-bind:id="todo" v-on:click="removeFromList">{{ todo }}</li>
         </ul>
     </div>
     
@@ -40,7 +40,7 @@
             methods: {
                 addToList: function(event) {
                     if (this.newTodoitem != '') {
-                        this.todoitems.push({ subject: this.newTodoitem })
+                        this.todoitems.push(this.newTodoitem)
                         localStorage.setItem('mytodoitems', JSON.stringify(this.todoitems))
                         this.newTodoitem = ''
                     }
@@ -50,7 +50,7 @@
                     if (choice) {
                         var targetIndex = this.todoitems.indexOf(event.target.id)
                         event.target.checked = false
-                        this.todoitems.splice(targetIndex-1,1)
+                        this.todoitems.splice(targetIndex,1)
                         localStorage.setItem('mytodoitems', JSON.stringify(this.todoitems))
                     } else {
                         event.target.checked = false
